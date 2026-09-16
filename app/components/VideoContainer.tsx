@@ -1,7 +1,6 @@
 import { getPopularVideos } from "@/actions/videos.action";
 import React from "react";
 import VideoCard from "./VideoCard";
-import { YouTubeVideosResponse } from "@/utils/types";
 
 const VideoContainer = async () => {
   const videosData = await getPopularVideos();

@@ -1,6 +1,5 @@
 import { MonitorPlay } from "lucide-react";
 import React from "react";
-import Search from "./SearchBar";
 import SearchBar from "./SearchBar";
 
 const Header = () => {

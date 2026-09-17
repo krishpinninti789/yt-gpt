@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import NetworkStatus from "./components/NetworkStatus";
 
 const lexendDeca = Lexend_Deca({
   variable: "--font-lexend-deca",
@@ -15,7 +17,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${lexendDeca.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <NetworkStatus />
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

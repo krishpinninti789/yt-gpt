@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search, UserRound } from "lucide-react";
 import React from "react";
 
 const SearchBar = () => {
@@ -19,6 +19,7 @@ const SearchBar = () => {
       <button className="cursor-pointer">
         <Search />
       </button>
+      <UserRound />
     </div>
   );
 };

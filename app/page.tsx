@@ -3,12 +3,7 @@ import Header from "./components/Header";
 import VideoContainer from "./components/VideoContainer";
 
 const page = () => {
-  return (
-    <div>
-      <Header />
-      <VideoContainer />
-    </div>
-  );
+  return <VideoContainer />;
 };
 
 export default page;

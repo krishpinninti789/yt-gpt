@@ -19,7 +19,6 @@ const SearchBar = () => {
       <button className="cursor-pointer">
         <Search />
       </button>
-      <UserRound />
     </div>
   );
 };

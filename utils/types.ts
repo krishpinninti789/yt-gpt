@@ -33,3 +33,22 @@ export type YouTubeVideosResponse = {
   items: YouTubeVideo[];
   nextPageToken?: string;
 };
+
+export type SidebarItem = {
+  label: string;
+  icon: React.ElementType;
+  href?: string;
+};
+
+export type SidebarSection = {
+  title?: string;
+  items: SidebarItem[];
+};
+
+export type SideBarProps = {
+  isExpanded: boolean;
+};
+
+export type HeaderProps = {
+  onMenuClick: () => void;
+};

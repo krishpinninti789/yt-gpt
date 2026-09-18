@@ -1,17 +1,24 @@
 import { Menu, MonitorPlay, UserRound } from "lucide-react";
-import React from "react";
+
 import SearchBar from "./SearchBar";
+import { HeaderProps } from "@/utils/types";
 
-const Header = () => {
+const Header = ({ onMenuClick }: HeaderProps) => {
   return (
-    <div className="w-full z-10 sticky top-0 flex flex-row justify-between items-center px-8 py-4 border-b border-gray-800 bg-black">
-      <div className="flex gap-x-6 justify-center items-center">
-        <span>
-          <Menu />
-        </span>
+    <header className="sticky top-0 z-50 flex h-24 w-full items-center justify-between bg-black px-8">
+      <div className="flex items-center gap-x-6">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          aria-label="Toggle sidebar"
+          className="rounded-full p-2 text-white transition-colors duration-200 hover:bg-gray-800"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
 
-        <div className="flex gap-x-2 justify-center items-center">
-          <MonitorPlay className="text-yellow-800 w-8 h-8" />
+        <div className="flex items-center gap-x-2">
+          <MonitorPlay className="h-8 w-8 text-yellow-800" />
+
           <h1 className="text-3xl text-yellow-800">
             YT-
             <span className="text-white">GPT</span>
@@ -20,8 +27,9 @@ const Header = () => {
       </div>
 
       <SearchBar />
-      <UserRound />
-    </div>
+
+      <UserRound className="text-white" />
+    </header>
   );
 };
 

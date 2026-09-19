@@ -1,17 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
-
 type ErrorPageProps = {
   error: Error & { digest?: string };
   reset: () => void;
 };
 
-const ErrorPage = ({ error, reset }: ErrorPageProps) => {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
+const ErrorPage = ({ reset }: ErrorPageProps) => {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
       <h2 className="text-2xl font-semibold">Something went wrong!</h2>

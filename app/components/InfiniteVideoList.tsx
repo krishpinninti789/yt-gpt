@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { InfiniteVideoListProps } from "@/utils/types";
 import VideoCard from "./VideoCard";
 import VideoGridSkeleton from "./loading-ui/VideoGridSkeleton";
@@ -16,7 +16,7 @@ const InfiniteVideoList = ({
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
-  const loadMoreVideos = async () => {
+  const loadMoreVideos = useCallback(async () => {
     if (!nextPageToken || isLoading) {
       return;
     }
@@ -48,7 +48,7 @@ const InfiniteVideoList = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [categoryId, nextPageToken, isLoading]);
 
   useEffect(() => {
     const loader = loaderRef.current;
@@ -83,7 +83,9 @@ const InfiniteVideoList = ({
         ))}
       </div>
 
-      <div ref={loaderRef}>{isLoading && <VideoGridSkeleton />}</div>
+      <div ref={loaderRef} className="min-h-20">
+        {isLoading && <VideoGridSkeleton />}
+      </div>
     </>
   );
 };

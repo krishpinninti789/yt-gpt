@@ -8,6 +8,7 @@ const VideoContainer = async ({ categoryId }: VideoContainerProps) => {
 
   return (
     <InfiniteVideoList
+      key={categoryId ?? "all"}
       initialVideos={videosData.items}
       initialNextPageToken={videosData.nextPageToken}
       categoryId={categoryId}

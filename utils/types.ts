@@ -26,6 +26,7 @@ export type YouTubeVideo = {
 };
 
 export type VideoCardProps = {
+  key: string;
   videoData: YouTubeVideo;
 };
 
@@ -60,4 +61,10 @@ export type VideoContainerProps = {
 export type GetVideosParams = {
   categoryId?: string;
   pageToken?: string;
+};
+
+export type InfiniteVideoListProps = {
+  initialVideos: YouTubeVideo[];
+  initialNextPageToken?: string;
+  categoryId?: string;
 };

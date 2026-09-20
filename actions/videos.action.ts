@@ -1,9 +1,5 @@
 import { YOUTUBE_API_BASE_URL } from "@/utils/constants";
-import {
-  GetVideosParams,
-  YouTubeVideo,
-  YouTubeVideosResponse,
-} from "@/utils/types";
+import { GetVideosParams, YouTubeVideosResponse } from "@/utils/types";
 
 export async function getVideos({
   categoryId,

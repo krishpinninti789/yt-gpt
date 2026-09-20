@@ -25,7 +25,7 @@ const VideoCategoryBar = () => {
   };
 
   return (
-    <div className="sticky z-30 w-full bg-black/95 backdrop-blur">
+    <div className="sticky top-0 z-30 w-full bg-black/95 backdrop-blur">
       <div className="flex gap-3 overflow-x-auto px-8 py-3 scrollbar-none">
         {VIDEO_CATEGORIES_CONFIG.map((category) => {
           const isActive = selectedCategory === category.id;

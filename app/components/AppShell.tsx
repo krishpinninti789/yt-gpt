@@ -13,12 +13,14 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
     <div className="h-screen overflow-hidden bg-black">
       <Header onMenuClick={() => setIsSidebarExpanded((prev) => !prev)} />
 
-      <div className="flex h-[calc(100vh-4rem)]">
+      <div className="flex h-[calc(100vh-6rem)]">
         <SideBar isExpanded={isSidebarExpanded} />
 
         <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
           {/* Does NOT scroll */}
-          <VideoCategoryBar />
+          <div className="shrink-0">
+            <VideoCategoryBar />
+          </div>
 
           {/* Only this area scrolls */}
           <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>

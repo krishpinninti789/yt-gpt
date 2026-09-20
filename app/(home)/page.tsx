@@ -1,5 +1,5 @@
 import React from "react";
-import VideoContainer from "./components/VideoContainer";
+import VideoContainer from "../components/VideoContainer";
 import { YOUTUBE_CATEGORY_IDS } from "@/utils/config/yt-category-config";
 
 type PageProps = {

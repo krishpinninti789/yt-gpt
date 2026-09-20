@@ -31,3 +31,23 @@ export async function getVideos({
 
   return response.json();
 }
+
+export async function getVideoDetails(
+  videoId: string,
+): Promise<YouTubeVideosResponse> {
+  const params = new URLSearchParams({
+    part: "snippet,contentDetails,statistics",
+    id: videoId,
+    key: process.env.YOUTUBE_API_KEY!,
+  });
+
+  const response = await fetch(
+    `${YOUTUBE_API_BASE_URL}/videos?${params.toString()}`,
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch video details");
+  }
+
+  return response.json();
+}

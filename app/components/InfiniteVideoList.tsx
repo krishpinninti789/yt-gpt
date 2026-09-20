@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { InfiniteVideoListProps } from "@/utils/types";
 import VideoCard from "./VideoCard";
 import VideoGridSkeleton from "./loading-ui/VideoGridSkeleton";
+import Link from "next/link";
 
 const InfiniteVideoList = ({
   initialVideos,
@@ -79,7 +80,9 @@ const InfiniteVideoList = ({
     <>
       <div className="grid grid-cols-3 gap-4 px-8 py-4">
         {videos.map((video) => (
-          <VideoCard key={video.id} videoData={video} />
+          <Link href={`/watch/${video.id}`} key={video.id}>
+            <VideoCard videoData={video} />
+          </Link>
         ))}
       </div>
 

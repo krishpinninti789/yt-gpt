@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
 import NetworkStatus from "./components/NetworkStatus";
-import SideBar from "./components/SideBar";
-import AppShell from "./components/AppShell";
 
 const lexendDeca = Lexend_Deca({
   variable: "--font-lexend-deca",
@@ -20,8 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${lexendDeca.variable} h-full antialiased`}>
       <body className="min-h-full bg-black">
         <NetworkStatus />
-
-        <AppShell>{children}</AppShell>
+        {children}
       </body>
     </html>
   );

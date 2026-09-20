@@ -4,6 +4,7 @@ export type YouTubeVideo = {
   snippet: {
     title: string;
     channelTitle: string;
+    publishedAt?: string;
 
     thumbnails: {
       medium?: {
@@ -26,7 +27,6 @@ export type YouTubeVideo = {
 };
 
 export type VideoCardProps = {
-  key: string;
   videoData: YouTubeVideo;
 };
 
@@ -51,7 +51,7 @@ export type SideBarProps = {
 };
 
 export type HeaderProps = {
-  onMenuClick: () => void;
+  onMenuClick?: () => void;
 };
 
 export type VideoContainerProps = {
@@ -67,4 +67,14 @@ export type InfiniteVideoListProps = {
   initialVideos: YouTubeVideo[];
   initialNextPageToken?: string;
   categoryId?: string;
+};
+
+export type WatchPageProps = {
+  params: Promise<{
+    videoId: string;
+  }>;
+};
+
+export type VideoPlayerProps = {
+  videoId: string;
 };

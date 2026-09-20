@@ -52,3 +52,12 @@ export type SideBarProps = {
 export type HeaderProps = {
   onMenuClick: () => void;
 };
+
+export type VideoContainerProps = {
+  categoryId?: string;
+};
+
+export type GetVideosParams = {
+  categoryId?: string;
+  pageToken?: string;
+};

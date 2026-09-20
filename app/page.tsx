@@ -1,9 +1,21 @@
 import React from "react";
 import VideoContainer from "./components/VideoContainer";
-import VideoCategoryBar from "./components/VideoCategoryBar";
+import { YOUTUBE_CATEGORY_IDS } from "@/utils/config/yt-category-config";
 
-const page = () => {
-  return <VideoContainer />;
+type PageProps = {
+  searchParams: Promise<{
+    category?: string;
+  }>;
+};
+
+const page = async ({ searchParams }: PageProps) => {
+  const { category } = await searchParams;
+
+  const categoryId =
+    category && category !== "all"
+      ? YOUTUBE_CATEGORY_IDS[category as keyof typeof YOUTUBE_CATEGORY_IDS]
+      : undefined;
+  return <VideoContainer categoryId={categoryId} />;
 };
 
 export default page;

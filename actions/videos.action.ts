@@ -1,7 +1,14 @@
 import { YOUTUBE_API_BASE_URL } from "@/utils/constants";
-import { YouTubeVideo, YouTubeVideosResponse } from "@/utils/types";
+import {
+  GetVideosParams,
+  YouTubeVideo,
+  YouTubeVideosResponse,
+} from "@/utils/types";
 
-export async function getPopularVideos(): Promise<YouTubeVideosResponse> {
+export async function getVideos({
+  categoryId,
+  pageToken,
+}: GetVideosParams = {}): Promise<YouTubeVideosResponse> {
   const params = new URLSearchParams({
     part: "snippet,contentDetails,statistics",
     chart: "mostPopular",
@@ -9,6 +16,14 @@ export async function getPopularVideos(): Promise<YouTubeVideosResponse> {
     maxResults: "20",
     key: process.env.YOUTUBE_API_KEY!,
   });
+
+  if (categoryId) {
+    params.set("videoCategoryId", categoryId);
+  }
+
+  if (pageToken) {
+    params.set("pageToken", pageToken);
+  }
 
   const response = await fetch(
     `${YOUTUBE_API_BASE_URL}/videos?${params.toString()}`,

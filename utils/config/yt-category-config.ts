@@ -1,0 +1,16 @@
+export const YOUTUBE_CATEGORY_IDS = {
+  filmAnimation: "1",
+  autosVehicles: "2",
+  music: "10",
+  petsAnimals: "15",
+  sports: "17",
+  travelEvents: "19",
+  gaming: "20",
+  peopleBlogs: "22",
+  comedy: "23",
+  entertainment: "24",
+  newsPolitics: "25",
+  howtoStyle: "26",
+  education: "27",
+  scienceTechnology: "28",
+} as const;

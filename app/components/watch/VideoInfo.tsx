@@ -1,4 +1,5 @@
 import { YouTubeVideo } from "@/utils/types";
+import millify from "millify";
 
 type VideoInfoProps = {
   video: YouTubeVideo;
@@ -18,14 +19,19 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
 
         <span>•</span>
 
-        <span>{Number(statistics.viewCount).toLocaleString()} views</span>
+        <span>{millify(Number(statistics.viewCount))} views</span>
 
         <span>•</span>
 
         <span>
           {snippet.publishedAt
-            ? new Date(snippet.publishedAt).toLocaleDateString()
-            : "Unknown date"}
+            ? new Date(snippet.publishedAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })
+            : // "Sep 10, 2026"
+              "Unknown date"}
         </span>
       </div>
     </section>

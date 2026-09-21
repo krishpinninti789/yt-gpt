@@ -23,3 +23,25 @@ body {
   color: var(--foreground);
   font-family: var(--font-lexend-deca);
 }
+
+@keyframes top-loader {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(30%);
+  }
+
+  75% {
+    transform: translateX(70%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-top-loader {
+  animation: top-loader 1.2s ease-in-out infinite;
+}

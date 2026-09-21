@@ -1,4 +1,5 @@
 import { getVideoDetails } from "@/actions/videos.action";
+import VideoActions from "@/app/components/watch/VideoActions";
 import VideoInfo from "@/app/components/watch/VideoInfo";
 import VideoPlayer from "@/app/components/watch/VideoPlayer";
 import { WatchPageProps } from "@/utils/types";
@@ -15,12 +16,13 @@ const WatchPage = async ({ params }: WatchPageProps) => {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-6">
+    <div className="max-w-7xl px-8 py-6">
       <div className="grid grid-cols-1 gap-8 xl:grid-cols-[1fr_380px]">
         <main>
           <VideoPlayer videoId={videoId} />
 
           <VideoInfo video={video} />
+          <VideoActions />
         </main>
 
         <aside>{/* Related videos will come here */}</aside>

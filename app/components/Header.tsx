@@ -2,6 +2,7 @@ import { Menu, MonitorPlay, UserRound } from "lucide-react";
 
 import SearchBar from "./SearchBar";
 import { HeaderProps } from "@/utils/types";
+import Link from "next/link";
 
 const Header = ({ onMenuClick }: HeaderProps) => {
   return (
@@ -16,14 +17,14 @@ const Header = ({ onMenuClick }: HeaderProps) => {
           <Menu className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center gap-x-2">
+        <Link className="flex items-center gap-x-2" href={"/"}>
           <MonitorPlay className="h-8 w-8 text-yellow-800" />
 
           <h1 className="text-3xl text-yellow-800">
             YT-
             <span className="text-white">GPT</span>
           </h1>
-        </div>
+        </Link>
       </div>
 
       <SearchBar />

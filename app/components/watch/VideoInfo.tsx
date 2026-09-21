@@ -18,7 +18,7 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
 
         <span>•</span>
 
-        <span>{Number(statistics?.viewCount).toLocaleString()} views</span>
+        <span>{Number(statistics.viewCount).toLocaleString()} views</span>
 
         <span>•</span>
 

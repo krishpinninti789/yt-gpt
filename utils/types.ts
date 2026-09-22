@@ -5,6 +5,7 @@ export type YouTubeVideo = {
     title: string;
     channelTitle: string;
     publishedAt?: string;
+    description?: string;
 
     thumbnails: {
       medium?: {
@@ -77,4 +78,8 @@ export type WatchPageProps = {
 
 export type VideoPlayerProps = {
   videoId: string;
+};
+
+export type VideoDescriptionProps = {
+  video: YouTubeVideo;
 };

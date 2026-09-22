@@ -1,4 +1,5 @@
 import { getVideoDetails } from "@/actions/videos.action";
+import VideoDescription from "@/app/components/watch/VideoDescription";
 import VideoInfo from "@/app/components/watch/VideoInfo";
 import VideoPlayer from "@/app/components/watch/VideoPlayer";
 import { WatchPageProps } from "@/utils/types";
@@ -20,6 +21,7 @@ const WatchPage = async ({ params }: WatchPageProps) => {
         <main>
           <VideoPlayer videoId={videoId} />
           <VideoInfo video={video} />
+          <VideoDescription video={video} />
         </main>
 
         <aside>{/* Related videos will come here */}</aside>

@@ -6,6 +6,7 @@ export type YouTubeVideo = {
     channelTitle: string;
     publishedAt?: string;
     description?: string;
+    categoryId?: string;
 
     thumbnails: {
       medium?: {
@@ -82,4 +83,65 @@ export type VideoPlayerProps = {
 
 export type VideoDescriptionProps = {
   video: YouTubeVideo;
+};
+
+export type GetRelatedVideosParams = {
+  title: string;
+  categoryId: string;
+  currentVideoId: string;
+};
+
+export type YouTubeSearchResult = {
+  kind: string;
+  etag: string;
+  id: {
+    kind: string;
+    videoId: string;
+  };
+  snippet: {
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    channelTitle: string;
+    liveBroadcastContent: string;
+    publishTime: string;
+  };
+};
+
+export type YouTubeSearchResponse = {
+  kind: string;
+  etag: string;
+  nextPageToken?: string;
+  regionCode: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: YouTubeSearchResult[];
+};
+
+export type RelatedVideoCardProps = {
+  video: YouTubeSearchResult;
+};
+
+export type RelatedVideosProps = {
+  videos: YouTubeSearchResult[];
 };

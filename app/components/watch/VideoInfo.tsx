@@ -13,10 +13,13 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
 
   return (
     <section className="mt-5">
-      <h1 className="text-xl font-semibold text-white">{snippet.title}</h1>
-      <div className="flex justify-between">
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-gray-400">
-          <span>{snippet.channelTitle}</span>
+      <h1 className="text-xl font-semibold leading-7 text-white">
+        {snippet.title}
+      </h1>
+
+      <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-400 sm:gap-3">
+          <span className="truncate">{snippet.channelTitle}</span>
 
           <span>•</span>
 
@@ -31,10 +34,10 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
                   day: "numeric",
                   year: "numeric",
                 })
-              : // "Sep 10, 2026"
-                "Unknown date"}
+              : "Unknown date"}
           </span>
         </div>
+
         <VideoActions />
       </div>
     </section>

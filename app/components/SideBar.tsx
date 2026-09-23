@@ -8,12 +8,11 @@ import Link from "next/link";
 const SideBar = ({ isExpanded }: SideBarProps) => {
   return (
     <aside
-      className={`h-full shrink-0 bg-black text-white ${
+      className={`hidden h-full shrink-0 bg-black text-white md:block ${
         isExpanded ? "w-64" : "w-20"
       }`}
     >
-      {/* Navigation */}
-      <nav className="h-[calc(100%-4rem)] overflow-y-auto px-3 py-4">
+      <nav className="h-full overflow-y-auto px-3 py-4">
         {SIDEBAR_CONFIG.map((section, sectionIndex) => (
           <React.Fragment key={section.title ?? sectionIndex}>
             {sectionIndex > 0 && (

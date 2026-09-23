@@ -1,5 +1,10 @@
 import { YOUTUBE_API_BASE_URL } from "@/utils/constants";
-import { GetVideosParams, YouTubeVideosResponse } from "@/utils/types";
+import {
+  GetRelatedVideosParams,
+  GetVideosParams,
+  YouTubeSearchResponse,
+  YouTubeVideosResponse,
+} from "@/utils/types";
 
 export async function getVideos({
   categoryId,
@@ -50,4 +55,41 @@ export async function getVideoDetails(
   }
 
   return response.json();
+}
+
+export async function getRelatedVideos({
+  title,
+  categoryId,
+  currentVideoId,
+}: GetRelatedVideosParams): Promise<YouTubeSearchResponse> {
+  const params = new URLSearchParams({
+    part: "snippet",
+    q: title,
+    type: "video",
+    videoCategoryId: categoryId,
+    order: "relevance",
+    regionCode: "IN",
+    maxResults: "10",
+    key: process.env.YOUTUBE_API_KEY!,
+  });
+
+  const response = await fetch(
+    `${YOUTUBE_API_BASE_URL}/search?${params.toString()}`,
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    console.error("Related videos API error:", error);
+
+    throw new Error("Failed to fetch related videos");
+  }
+
+  const data = await response.json();
+
+  return {
+    ...data,
+    items: data.items.filter(
+      (item: { id: { videoId: string } }) => item.id.videoId !== currentVideoId,
+    ),
+  };
 }

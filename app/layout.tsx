@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
 import NetworkStatus from "./components/NetworkStatus";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${lexendDeca.variable} h-full antialiased`}>
-      <body className="min-h-full bg-black">
+      <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
         <TopLoaderProvider>
           <NetworkStatus />
           {children}

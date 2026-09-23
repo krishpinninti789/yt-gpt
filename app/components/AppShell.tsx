@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 import Header from "./Header";
 import SideBar from "./SideBar";
@@ -10,16 +10,22 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   return (
-    <div className="h-screen overflow-hidden bg-black">
+    <div className="h-screen overflow-hidden bg-background">
       <Header onMenuClick={() => setIsSidebarExpanded((prev) => !prev)} />
 
       <div className="flex h-[calc(100vh-6rem)]">
         <SideBar isExpanded={isSidebarExpanded} />
 
-        <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <main className="flex min-w-0 flex-1 flex-col overflow-hidden border-l border-[var(--hairline)]">
           {/* Does NOT scroll */}
           <div className="shrink-0">
-            <VideoCategoryBar />
+            <Suspense
+              fallback={
+                <div className="h-14.25 border-b border-(--hairline)" />
+              }
+            >
+              <VideoCategoryBar />
+            </Suspense>
           </div>
 
           {/* Only this area scrolls */}

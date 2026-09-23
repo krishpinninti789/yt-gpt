@@ -78,7 +78,7 @@ const InfiniteVideoList = ({
 
   return (
     <>
-      <div className="grid md:grid-cols-3 gap-4 px-8 py-4">
+      <div className="grid gap-x-5 gap-y-9 px-5 py-6 sm:grid-cols-2 md:px-8 lg:grid-cols-3 xl:gap-x-6">
         {videos.map((video) => (
           <Link href={`/watch/${video.id}`} key={video.id}>
             <VideoCard videoData={video} />

@@ -8,7 +8,7 @@ import Link from "next/link";
 const SideBar = ({ isExpanded }: SideBarProps) => {
   return (
     <aside
-      className={`hidden h-full shrink-0 bg-black text-white md:block ${
+      className={`hidden h-full shrink-0 bg-[var(--background)] text-[var(--foreground)] md:block ${
         isExpanded ? "w-64" : "w-20"
       }`}
     >
@@ -16,11 +16,11 @@ const SideBar = ({ isExpanded }: SideBarProps) => {
         {SIDEBAR_CONFIG.map((section, sectionIndex) => (
           <React.Fragment key={section.title ?? sectionIndex}>
             {sectionIndex > 0 && (
-              <div className="my-4 border-t border-gray-800" />
+              <div className="my-4 border-t border-[var(--hairline)]" />
             )}
 
             {section.title && isExpanded && (
-              <h2 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <h2 className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--muted-copy)]">
                 {section.title}
               </h2>
             )}
@@ -33,7 +33,7 @@ const SideBar = ({ isExpanded }: SideBarProps) => {
                   <Link
                     key={item.label}
                     href={item.href!}
-                    className={`group relative flex items-center rounded-xl px-3 py-3 text-sm font-medium text-gray-400 transition-all duration-200 hover:bg-gray-900 hover:text-white ${
+                    className={`group relative flex items-center rounded-lg px-3 py-3 text-sm font-medium text-[var(--muted-copy)] transition-all duration-200 hover:bg-[var(--surface-card)] hover:text-[var(--foreground)] ${
                       isExpanded ? "gap-4" : "justify-center"
                     }`}
                   >

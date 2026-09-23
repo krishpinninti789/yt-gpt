@@ -9,7 +9,7 @@ const RelatedVideoCard = ({ video }: RelatedVideoCardProps) => {
   return (
     <Link
       href={`/watch/${videoId}`}
-      className="group flex gap-3 rounded-lg p-2 hover:bg-gray-900"
+      className="group flex gap-3 rounded-lg border border-transparent p-2 transition-colors hover:border-[var(--hairline)] hover:bg-[var(--surface-card)]"
     >
       <div className="relative aspect-video w-40 shrink-0 overflow-hidden rounded-lg">
         <Image
@@ -22,9 +22,11 @@ const RelatedVideoCard = ({ video }: RelatedVideoCardProps) => {
       </div>
 
       <div className="min-w-0">
-        <h3 className="line-clamp-2 text-sm font-medium text-white">{title}</h3>
+        <h3 className="line-clamp-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--accent)]">
+          {title}
+        </h3>
 
-        <p className="mt-1 line-clamp-1 text-xs text-gray-400">
+        <p className="mt-1 line-clamp-1 text-xs text-[var(--muted-copy)]">
           {channelTitle}
         </p>
       </div>

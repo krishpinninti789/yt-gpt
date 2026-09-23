@@ -23,8 +23,8 @@ const WatchPage = async ({ params }: WatchPageProps) => {
   }
 
   return (
-    <div className="max-w-auto px-8 py-6">
-      <div className="grid grid-cols-1 gap-8 xl:grid-cols-[1fr_380px]">
+    <div className="mx-auto max-w-[1600px] px-5 py-6 md:px-8 md:py-8">
+      <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1fr)_380px] xl:gap-12">
         <main>
           <VideoPlayer videoId={videoId} />
           <VideoInfo video={video} />

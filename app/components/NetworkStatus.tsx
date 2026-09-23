@@ -36,7 +36,7 @@ const NetworkStatus = () => {
 
   if (!isOnline) {
     return (
-      <div className="fixed top-0 right-0 left-0 z-50 animate-in slide-in-from-top-2 fade-in duration-300 bg-red-600 px-4 py-2 text-center text-sm text-white">
+      <div className="fixed top-0 right-0 left-0 z-50 animate-in slide-in-from-top-2 fade-in duration-300 bg-[var(--accent)] px-4 py-2 text-center text-sm text-[var(--background)]">
         You&apos;re offline. Some features may not work.
       </div>
     );
@@ -44,7 +44,7 @@ const NetworkStatus = () => {
 
   if (showBackOnline) {
     return (
-      <div className="fixed top-0 right-0 left-0 z-50 animate-in slide-in-from-top-2 fade-in duration-300 bg-green-600 px-4 py-2 text-center text-sm text-white">
+      <div className="fixed top-0 right-0 left-0 z-50 animate-in slide-in-from-top-2 fade-in duration-300 bg-[#11ff99] px-4 py-2 text-center text-sm text-black">
         You&apos;re back online.
       </div>
     );

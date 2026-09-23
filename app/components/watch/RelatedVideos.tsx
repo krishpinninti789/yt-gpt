@@ -8,7 +8,10 @@ const RelatedVideos = ({ videos }: RelatedVideosProps) => {
 
   return (
     <section>
-      <h2 className="mb-4 text-lg font-semibold text-white">Related Videos</h2>
+      <div className="mb-4 flex items-center gap-3">
+        <span className="h-2 w-2 rounded-full bg-(--accent)" />
+        <h2 className="text-lg font-medium text-foreground">Related videos</h2>
+      </div>
 
       <div className="flex flex-col gap-2">
         {videos.map((video) => (

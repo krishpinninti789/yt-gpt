@@ -12,20 +12,20 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
   if (!snippet || !statistics) return null;
 
   return (
-    <section className="mt-5">
-      <h1 className="text-xl font-semibold leading-7 text-white">
+    <section className="mt-6 border-b border-[var(--hairline)] pb-5">
+      <h1 className="display-serif text-2xl leading-tight text-[var(--foreground)] md:text-3xl">
         {snippet.title}
       </h1>
 
       <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-400 sm:gap-3">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--muted-copy)] sm:gap-3">
           <span className="truncate">{snippet.channelTitle}</span>
 
-          <span>•</span>
+          <span className="text-[var(--accent)]">/</span>
 
           <span>{millify(Number(statistics.viewCount))} views</span>
 
-          <span>•</span>
+          <span className="text-[var(--accent)]">/</span>
 
           <span>
             {snippet.publishedAt

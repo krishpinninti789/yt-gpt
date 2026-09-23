@@ -25,8 +25,8 @@ const VideoCategoryBar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-30 w-full bg-black/95 backdrop-blur">
-      <div className="flex gap-3 overflow-x-auto px-8 py-3 scrollbar-none">
+    <div className="sticky top-0 z-30 w-full border-b border-(--hairline) bg-(--background)/95 backdrop-blur">
+      <div className="flex gap-2 overflow-x-auto px-5 py-3 scrollbar-none md:px-8">
         {VIDEO_CATEGORIES_CONFIG.map((category) => {
           const isActive = selectedCategory === category.id;
 
@@ -37,8 +37,8 @@ const VideoCategoryBar = () => {
               onClick={() => handleCategoryChange(category.id)}
               className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-white text-black"
-                  : "bg-gray-900 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  ? "bg-foreground text-background"
+                  : "bg-(--surface-card) text-(--muted-copy) hover:bg-(--surface-elevated) hover:text-foreground"
               }`}
             >
               {category.label}

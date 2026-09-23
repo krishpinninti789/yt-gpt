@@ -10,9 +10,9 @@ const VideoCard = ({ videoData }: VideoCardProps) => {
     snippet.thumbnails.high?.url ?? snippet.thumbnails.medium?.url;
 
   return (
-    <article className="group cursor-pointer flex flex-col gap-y-3">
+    <article className="group flex cursor-pointer flex-col gap-y-3">
       {/* Thumbnail */}
-      <div className="relative aspect-video overflow-hidden rounded-xl">
+      <div className="relative aspect-video overflow-hidden rounded-lg border border-[var(--hairline)] bg-[var(--surface-card)]">
         {thumbnail && (
           <Image
             src={thumbnail}
@@ -20,21 +20,23 @@ const VideoCard = ({ videoData }: VideoCardProps) => {
             fill
             loading="eager"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         )}
       </div>
 
       {/* Video information */}
       <div className="flex flex-col gap-y-1">
-        <h3 className="line-clamp-2 text-base font-semibold text-white">
+        <h3 className="line-clamp-2 text-[15px] font-medium leading-6 text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
           {snippet.title}
         </h3>
 
-        <p className="text-sm text-gray-400">{snippet.channelTitle}</p>
+        <p className="text-sm text-[var(--body-copy)]">
+          {snippet.channelTitle}
+        </p>
 
         {statistics?.viewCount && (
-          <p className="text-sm text-gray-500">
+          <p className="text-xs uppercase tracking-[0.08em] text-[var(--muted-copy)]">
             {millify(Number(statistics?.viewCount ?? 0))} views
           </p>
         )}

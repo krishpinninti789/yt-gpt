@@ -89,6 +89,8 @@ export type GetRelatedVideosParams = {
   title: string;
   categoryId: string;
   currentVideoId: string;
+  pageToken?: string;
+  maxResults?: number;
 };
 
 export type YouTubeSearchResult = {
@@ -143,5 +145,9 @@ export type RelatedVideoCardProps = {
 };
 
 export type RelatedVideosProps = {
-  videos: YouTubeSearchResult[];
+  initialVideos: YouTubeSearchResult[];
+  initialNextPageToken?: string;
+  title: string;
+  categoryId: string;
+  currentVideoId: string;
 };

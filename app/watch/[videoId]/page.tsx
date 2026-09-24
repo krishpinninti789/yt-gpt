@@ -32,7 +32,13 @@ const WatchPage = async ({ params }: WatchPageProps) => {
         </main>
 
         <aside>
-          <RelatedVideos videos={relatedVideosData.items} />
+          <RelatedVideos
+            initialVideos={relatedVideosData.items}
+            initialNextPageToken={relatedVideosData.nextPageToken}
+            title={video.snippet.title}
+            categoryId={video.snippet.categoryId!}
+            currentVideoId={video.id}
+          />
         </aside>
       </div>
     </div>

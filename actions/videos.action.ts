@@ -61,6 +61,7 @@ export async function getRelatedVideos({
   title,
   categoryId,
   currentVideoId,
+  pageToken,
 }: GetRelatedVideosParams): Promise<YouTubeSearchResponse> {
   const params = new URLSearchParams({
     part: "snippet",
@@ -72,6 +73,10 @@ export async function getRelatedVideos({
     maxResults: "10",
     key: process.env.YOUTUBE_API_KEY!,
   });
+
+  if (pageToken) {
+    params.set("pageToken", pageToken);
+  }
 
   const response = await fetch(
     `${YOUTUBE_API_BASE_URL}/search?${params.toString()}`,

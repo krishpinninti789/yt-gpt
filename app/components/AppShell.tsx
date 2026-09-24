@@ -9,9 +9,13 @@ import VideoCategoryBar from "./VideoCategoryBar";
 const AppShell = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
+  const handleMenuClick = () => {
+    setIsSidebarExpanded((prev) => !prev);
+  };
+
   return (
     <div className="h-screen overflow-hidden bg-background">
-      <Header onMenuClick={() => setIsSidebarExpanded((prev) => !prev)} />
+      <Header onMenuClick={handleMenuClick} />
 
       <div className="flex h-[calc(100vh-6rem)]">
         <SideBar isExpanded={isSidebarExpanded} />

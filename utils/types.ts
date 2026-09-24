@@ -53,7 +53,7 @@ export type SideBarProps = {
 };
 
 export type HeaderProps = {
-  onMenuClick?: () => void;
+  onMenuClick: () => void;
 };
 
 export type VideoContainerProps = {

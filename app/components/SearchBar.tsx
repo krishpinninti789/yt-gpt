@@ -10,7 +10,7 @@ const SearchBar = () => {
       <button
         type="button"
         aria-label="Search"
-        className="shrink-0 rounded-lg p-1.5 text-[var(--accent)] transition-colors hover:bg-[var(--surface-elevated)]"
+        className="shrink-0 rounded-lg p-1.5 text-[var(--accent)] transition-colors hover:bg-(--surface-elevated) cursor-pointer"
       >
         <Search className="h-5 w-5" />
       </button>

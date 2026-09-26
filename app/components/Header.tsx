@@ -10,12 +10,14 @@ const Header = ({ onMenuClick }: HeaderProps) => {
   const pathname = usePathname();
 
   const isWatchPage = pathname.startsWith("/watch");
+  const isSearchPage = pathname.startsWith("/search");
 
-  const getRenderableIcon = isWatchPage ? (
-    <StepBack className="h-5 w-5 md:h-6 md:w-6" />
-  ) : (
-    <Menu className="h-5 w-5 md:h-6 md:w-6" />
-  );
+  const getRenderableIcon =
+    isWatchPage || isSearchPage ? (
+      <StepBack className="h-5 w-5 md:h-6 md:w-6" />
+    ) : (
+      <Menu className="h-5 w-5 md:h-6 md:w-6" />
+    );
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between gap-x-3 border-b border-(--hairline) bg-background px-4 sm:px-6 md:h-20 md:px-8">
       <div className="flex shrink-0 items-center gap-x-2 sm:gap-x-4">

@@ -151,3 +151,9 @@ export type RelatedVideosProps = {
   categoryId: string;
   currentVideoId: string;
 };
+
+export type GetSearchVideosParams = {
+  query: string;
+  pageToken?: string;
+  maxResults?: number;
+};

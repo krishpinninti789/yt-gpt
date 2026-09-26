@@ -1,6 +1,7 @@
 import { YOUTUBE_API_BASE_URL } from "@/utils/constants";
 import {
   GetRelatedVideosParams,
+  GetSearchVideosParams,
   GetVideosParams,
   YouTubeSearchResponse,
   YouTubeVideosResponse,
@@ -97,4 +98,37 @@ export async function getRelatedVideos({
       (item: { id: { videoId: string } }) => item.id.videoId !== currentVideoId,
     ),
   };
+}
+
+export async function getSearchVideos({
+  query,
+  pageToken,
+  maxResults = 20,
+}: GetSearchVideosParams): Promise<YouTubeSearchResponse> {
+  const params = new URLSearchParams({
+    part: "snippet",
+    q: query,
+    type: "video",
+    regionCode: "IN",
+    maxResults: String(maxResults),
+    key: process.env.YOUTUBE_API_KEY!,
+  });
+
+  if (pageToken) {
+    params.set("pageToken", pageToken);
+  }
+
+  const response = await fetch(
+    `${YOUTUBE_API_BASE_URL}/search?${params.toString()}`,
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+
+    console.error("Search videos API error:", error);
+
+    throw new Error("Failed to search videos");
+  }
+
+  return response.json();
 }

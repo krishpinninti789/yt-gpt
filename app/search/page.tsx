@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import SearchVideoList from "../components/search/SearchVideoList";
 import SearchVideosShimmerList from "../components/loading-ui/SearchVideosShimmerList";
 import SearchVideoShimmer from "../components/loading-ui/SearchVideoShimmer";
+import SearchFilters from "../components/search/SearchFilters";
 
 const SearchPage = () => {
   const [videos, setVideos] = useState<YouTubeSearchResult[]>([]);
@@ -14,6 +15,9 @@ const SearchPage = () => {
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
+  const uploadDate = searchParams.get("uploadDate");
+  const duration = searchParams.get("duration");
+  const order = searchParams.get("order") ?? "relevance";
 
   const loadMoreVideos = useCallback(async () => {
     if (isLoading) {
@@ -23,11 +27,13 @@ const SearchPage = () => {
       if (!query) return;
       setIsLoading(true);
 
-      const params = new URLSearchParams();
+      const params = new URLSearchParams({
+        query,
+        ...(uploadDate && { uploadDate }),
+        ...(duration && { duration }),
+        ...(order && { order }),
+      });
 
-      if (query) {
-        params.set("query", query);
-      }
       if (pageToken) params.set("pageToken", pageToken!);
 
       const response = await fetch(`/api/videos/search?${params.toString()}`);
@@ -44,7 +50,7 @@ const SearchPage = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [query, pageToken, isLoading]);
+  }, [query, uploadDate, duration, order, pageToken, isLoading]);
 
   useEffect(() => {
     const loader = loaderRef.current;
@@ -67,11 +73,18 @@ const SearchPage = () => {
     };
   }, [pageToken, isLoading]);
 
+  useEffect(() => {
+    setVideos([]);
+    setPageToken(null);
+  }, [query, uploadDate, duration, order]);
+
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8">
       <h1 className="mb-6 text-xl font-semibold text-foreground">
         Search results for "{query}"
       </h1>
+
+      <SearchFilters />
 
       <SearchVideoList videos={videos} />
       <div ref={loaderRef} className="min-h-20">

@@ -1,8 +1,9 @@
 "use client";
-import { Menu, MonitorPlay, StepBack, UserRound } from "lucide-react";
+import { Menu, MonitorPlay, StepBack } from "lucide-react";
 import Link from "next/link";
 
 import SearchBar from "./SearchBar";
+import AuthButton from "./AuthButton";
 import { HeaderProps } from "@/utils/types";
 import { usePathname } from "next/navigation";
 
@@ -44,13 +45,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
         <SearchBar />
       </div>
 
-      <button
-        type="button"
-        aria-label="Account"
-        className="rounded-lg p-2 text-(--muted-copy) transition-colors hover:bg-(--surface-elevated) hover:text-foreground"
-      >
-        <UserRound className="h-5 w-5 shrink-0 md:h-6 md:w-6" />
-      </button>
+      <AuthButton />
     </header>
   );
 };

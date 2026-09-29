@@ -72,7 +72,6 @@ const SearchPage = () => {
       <h1 className="mb-6 text-xl font-semibold text-foreground">
         Search results for "{query}"
       </h1>
-      <SearchVideoShimmer />
 
       <SearchVideoList videos={videos} />
       <div ref={loaderRef} className="min-h-20">

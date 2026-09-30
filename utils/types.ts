@@ -157,3 +157,28 @@ export type GetSearchVideosParams = {
   pageToken?: string;
   maxResults?: number;
 };
+
+export type HistoryVideo = {
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  channelTitle: string;
+  watchedAt: string | null;
+};
+
+export type HistoryVideoCardProps = {
+  video: HistoryVideo;
+};
+
+export type HistoryVideoListProps = {
+  videos: HistoryVideo[];
+};
+
+export type AddToHistoryParams = {
+  userId: string;
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  channelId: string;
+  channelTitle: string;
+};

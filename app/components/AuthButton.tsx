@@ -11,23 +11,16 @@ import { LogIn, LogOut, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { auth } from "@/utils/config/firebase/firebaseAuthClient";
+import { useAuth } from "../../hooks/useAuth";
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthButton = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [avatarFailed, setAvatarFailed] = useState(false);
 
-  useEffect(
-    () =>
-      onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        setAvatarFailed(false);
-      }),
-    [],
-  );
+  const { user, loading } = useAuth();
 
   const handleAuth = async () => {
     setError(null);

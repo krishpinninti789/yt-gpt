@@ -18,8 +18,16 @@ const AuthButton = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
-  useEffect(() => onAuthStateChanged(auth, setUser), []);
+  useEffect(
+    () =>
+      onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        setAvatarFailed(false);
+      }),
+    [],
+  );
 
   const handleAuth = async () => {
     setError(null);
@@ -52,6 +60,10 @@ const AuthButton = () => {
   const label = user
     ? `Sign out ${user.displayName ?? user.email ?? ""}`
     : "Sign in with Google";
+  const initials = (user?.displayName ?? user?.email ?? "U")
+    .trim()
+    .charAt(0)
+    .toUpperCase();
 
   return (
     <div className="relative">
@@ -63,14 +75,26 @@ const AuthButton = () => {
         title={user?.displayName ?? user?.email ?? "Sign in with Google"}
         className="flex cursor-pointer items-center gap-2 rounded-lg p-2 text-(--muted-copy) transition-colors hover:bg-(--surface-elevated) hover:text-foreground disabled:cursor-wait disabled:opacity-60"
       >
-        {user?.photoURL ? (
-          <span
-            aria-hidden="true"
-            className="h-6 w-6 rounded-full bg-cover bg-center md:h-7 md:w-7"
-            style={{ backgroundImage: `url("${user.photoURL}")` }}
-          />
-        ) : user ? (
-          <LogOut className="h-5 w-5 shrink-0 md:h-6 md:w-6" />
+        {user ? (
+          <>
+            {user.photoURL && !avatarFailed ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={user.photoURL}
+                alt=""
+                onError={() => setAvatarFailed(true)}
+                className="block h-6 w-6 rounded-full object-cover md:h-7 md:w-7"
+              />
+            ) : (
+              <span
+                aria-hidden="true"
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-(--accent) text-xs font-semibold text-background md:h-7 md:w-7"
+              >
+                {initials}
+              </span>
+            )}
+            <LogOut className="hidden h-5 w-5 shrink-0 md:block md:h-6 md:w-6" />
+          </>
         ) : (
           <>
             <UserRound className="h-5 w-5 shrink-0 md:h-6 md:w-6" />

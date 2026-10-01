@@ -11,7 +11,7 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { AddToHistoryParams } from "@/utils/types";
+import { AddToHistoryParams, HistoryVideo } from "@/utils/types";
 
 export async function addToHistory({
   userId,
@@ -39,7 +39,7 @@ export async function addToHistory({
   return { success: true };
 }
 
-export async function getHistory(userId: string) {
+export async function getHistory(userId: string): Promise<HistoryVideo[]> {
   if (!userId) {
     throw new Error("userId is required");
   }
@@ -50,10 +50,21 @@ export async function getHistory(userId: string) {
 
   const snapshot = await getDocs(historyQuery);
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  return snapshot.docs.map((historyDoc) => {
+    const data = historyDoc.data();
+    const watchedAt = data.watchedAt;
+
+    return {
+      videoId: data.videoId ?? historyDoc.id,
+      title: data.title ?? "",
+      thumbnail: data.thumbnail ?? "",
+      channelTitle: data.channelTitle ?? "",
+      watchedAt:
+        watchedAt && typeof watchedAt.toDate === "function"
+          ? watchedAt.toDate().toISOString()
+          : null,
+    };
+  });
 }
 
 export async function removeFromHistory(userId: string, videoId: string) {

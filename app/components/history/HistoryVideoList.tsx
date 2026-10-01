@@ -1,4 +1,4 @@
-import { HistoryVideo, HistoryVideoListProps } from "@/utils/types";
+import { HistoryVideoListProps } from "@/utils/types";
 import HistoryVideoCard from "./HistoryVideoCard";
 
 const HistoryVideoList = ({ videos }: HistoryVideoListProps) => {
@@ -19,7 +19,7 @@ const HistoryVideoList = ({ videos }: HistoryVideoListProps) => {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-8">
       {videos.map((video) => (
         <HistoryVideoCard key={video.videoId} video={video} />
       ))}

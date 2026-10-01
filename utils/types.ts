@@ -7,6 +7,7 @@ export type YouTubeVideo = {
     publishedAt?: string;
     description?: string;
     categoryId?: string;
+    channelId?: string;
 
     thumbnails: {
       medium?: {

@@ -19,10 +19,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${lexendDeca.variable} h-full antialiased`}>
       <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
-        <TopLoaderProvider>
-          <NetworkStatus />
-          {children}
-        </TopLoaderProvider>
+        <Suspense fallback={null}>
+          <TopLoaderProvider>
+            <NetworkStatus />
+            {children}
+          </TopLoaderProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -169,10 +169,7 @@ export type HistoryVideo = {
 
 export type HistoryVideoCardProps = {
   video: HistoryVideo;
-};
-
-export type HistoryVideoListProps = {
-  videos: HistoryVideo[];
+  onRemove: (videoId: string) => Promise<void>;
 };
 
 export type AddToHistoryParams = {
@@ -182,4 +179,21 @@ export type AddToHistoryParams = {
   thumbnail: string;
   channelId: string;
   channelTitle: string;
+};
+
+export type HistoryVideoListProps = {
+  videos: HistoryVideo[];
+  isLoading: boolean;
+  onRemove: (videoId: string) => Promise<void>;
+  onClear: () => Promise<void>;
+};
+
+export type ConfirmDeleteModalProps = {
+  isOpen: boolean;
+  title: string;
+  description: string;
+  confirmText?: string;
+  isDeleting?: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
 };

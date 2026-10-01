@@ -35,7 +35,7 @@ const VideoCategoryBar = () => {
               key={category.id}
               type="button"
               onClick={() => handleCategoryChange(category.id)}
-              className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
+              className={`shrink-0 rounded-lg cursor-pointer px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 isActive
                   ? "bg-foreground text-background"
                   : "bg-(--surface-card) text-(--muted-copy) hover:bg-(--surface-elevated) hover:text-foreground"

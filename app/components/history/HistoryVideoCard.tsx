@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ConfirmDeleteModal from "../ConfirmDeleteModal";
+import { dateToString } from "@/utils/utils";
 
 const HistoryVideoCard = ({ video, onRemove }: HistoryVideoCardProps) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -27,10 +28,10 @@ const HistoryVideoCard = ({ video, onRemove }: HistoryVideoCardProps) => {
 
   return (
     <>
-      <div className="group flex gap-4 rounded-xl p-2 transition-colors hover:bg-(--surface-elevated)">
+      <div className="group flex flex-col md:flex-row gap-4 rounded-xl p-2 transition-colors hover:bg-(--surface-elevated)">
         <Link
           href={`/watch/${video.videoId}`}
-          className="relative aspect-video w-48 shrink-0 overflow-hidden rounded-xl sm:w-56 md:w-72"
+          className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl sm:w-56 md:w-72"
         >
           <Image
             src={video.thumbnail}
@@ -41,33 +42,35 @@ const HistoryVideoCard = ({ video, onRemove }: HistoryVideoCardProps) => {
           />
         </Link>
 
-        <div className="min-w-0 flex-1 py-1">
-          <Link href={`/watch/${video.videoId}`}>
-            <h2 className="line-clamp-2 text-base font-semibold text-foreground">
-              {video.title}
-            </h2>
+        <div className="flex flex-row justify-between">
+          <div className="min-w-0 flex-1 py-1">
+            <Link href={`/watch/${video.videoId}`}>
+              <h2 className="line-clamp-2 text-base font-semibold text-foreground">
+                {video.title}
+              </h2>
 
-            <p className="mt-2 text-sm text-(--muted-copy)">
-              {video.channelTitle}
-            </p>
-
-            {video.watchedAt && (
               <p className="mt-2 text-sm text-(--muted-copy)">
-                Watched {new Date(video.watchedAt).toLocaleDateString()}
+                {video.channelTitle}
               </p>
-            )}
-          </Link>
-        </div>
 
-        <button
-          type="button"
-          onClick={() => setIsDeleteModalOpen(true)}
-          aria-label={`Remove ${video.title} from history`}
-          title="Remove from history"
-          className="h-fit shrink-0 rounded-full cursor-pointer p-2 text-(--muted-copy) transition-colors hover:bg-red-500/10 hover:text-red-500"
-        >
-          <Trash2 className="h-5 w-5" />
-        </button>
+              {video.watchedAt && (
+                <p className="mt-2 text-sm text-(--muted-copy)">
+                  Watched {dateToString(video.watchedAt)}
+                </p>
+              )}
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsDeleteModalOpen(true)}
+            aria-label={`Remove ${video.title} from history`}
+            title="Remove from history"
+            className="h-fit shrink-0 rounded-full cursor-pointer p-2 text-(--muted-copy) transition-colors hover:bg-red-500/10 hover:text-red-500"
+          >
+            <Trash2 className="h-5 w-5" />
+          </button>
+        </div>
       </div>
 
       <ConfirmDeleteModal

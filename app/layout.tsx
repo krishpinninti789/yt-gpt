@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { Lexend_Deca } from "next/font/google";
 import "./globals.css";
@@ -9,6 +9,13 @@ const lexendDeca = Lexend_Deca({
   variable: "--font-lexend-deca",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "YT-GPT",

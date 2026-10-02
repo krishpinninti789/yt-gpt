@@ -42,7 +42,7 @@ const HistoryVideoCard = ({ video, onRemove }: HistoryVideoCardProps) => {
           />
         </Link>
 
-        <div className="flex flex-row justify-between">
+        <div className="flex w-full flex-row justify-between">
           <div className="min-w-0 flex-1 py-1">
             <Link href={`/watch/${video.videoId}`}>
               <h2 className="line-clamp-2 text-base font-semibold text-foreground">

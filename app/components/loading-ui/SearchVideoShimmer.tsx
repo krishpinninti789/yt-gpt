@@ -1,8 +1,8 @@
 const SearchVideoShimmer = () => {
   return (
-    <div className="flex animate-pulse gap-4 rounded-xl p-2">
+    <div className="flex flex-col md:flex-row animate-pulse gap-4 rounded-xl p-2">
       {/* Thumbnail */}
-      <div className="aspect-video w-72 shrink-0 rounded-xl bg-(--surface-elevated)" />
+      <div className="aspect-video w-full md:w-72 shrink-0 rounded-xl bg-(--surface-elevated)" />
 
       {/* Content */}
       <div className="min-w-0 flex-1 py-1">

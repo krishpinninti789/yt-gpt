@@ -15,7 +15,7 @@ const VideoDescription = ({ video }: VideoDescriptionProps) => {
   return (
     <section className="mt-5 rounded-lg border border-[var(--hairline-strong)] bg-[var(--surface-card)] p-5 text-sm leading-6 text-[var(--body-copy)]">
       <div
-        className={`whitespace-pre-wrap ${isExpanded ? "" : "line-clamp-3"}`}
+        className={`whitespace-pre-wrap overflow-clip ${isExpanded ? "" : "line-clamp-3"}`}
       >
         {description}
       </div>

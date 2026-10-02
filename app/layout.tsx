@@ -18,8 +18,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "YT-GPT",
-  description: "Youtube with GPT features",
+  title: "Vidora",
+  description: "Watch. Explore. Understand.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

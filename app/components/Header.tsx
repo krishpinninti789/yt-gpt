@@ -35,8 +35,8 @@ const Header = ({ onMenuClick }: HeaderProps) => {
           <MonitorPlay className="h-7 w-7 text-(--accent) md:h-8 md:w-8" />
 
           <h1 className="display-serif hidden text-xl text-foreground sm:block md:text-3xl">
-            YT-
-            <span className="text-(--accent)">GPT</span>
+            Vid
+            <span className="text-(--accent)">ora</span>
           </h1>
         </Link>
       </div>

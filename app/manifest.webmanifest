@@ -1,7 +1,7 @@
 {
-  "name": "YT-GPT",
-  "short_name": "YT-GPT",
-  "description": "YouTube with AI-powered insights",
+  "name": "Vidora",
+  "short_name": "Vidora",
+  "description": "Watch. Explore. Understand.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

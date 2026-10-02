@@ -23,8 +23,6 @@ const Page = () => {
     }
 
     if (!user) {
-      setVideos([]);
-      setIsLoading(false);
       return;
     }
 
@@ -75,8 +73,8 @@ const Page = () => {
     <AppShell>
       <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8">
         <HistoryVideoList
-          videos={videos}
-          isLoading={isLoading}
+          videos={user ? videos : []}
+          isLoading={loading || (user ? isLoading : false)}
           onRemove={handleRemove}
           onClear={handleClear}
         />

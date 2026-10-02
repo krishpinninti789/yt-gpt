@@ -15,6 +15,11 @@ const SearchBar = () => {
         type="text"
         placeholder="Search"
         value={searchValue}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSearch();
+          }
+        }}
         onChange={(e) => setSearchValue(e.target.value)}
         className="min-w-0 flex-1 bg-transparent px-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-copy)] focus:outline-none"
       />

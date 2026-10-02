@@ -8,15 +8,17 @@ type SearchVideoCardProps = {
 
 const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
   const { videoId } = video.id;
-  const { title, description, channelTitle, thumbnails } = video.snippet;
+  const { title, channelTitle, thumbnails, publishTime, description } =
+    video.snippet;
+  console.log(video);
 
   return (
     <Link
       href={`/watch/${videoId}`}
-      className="group flex gap-4 rounded-xl p-2 transition-colors hover:bg-(--surface-elevated)"
+      className="group flex flex-col md:flex-row gap-4 rounded-xl p-2 transition-colors hover:bg-(--surface-elevated)"
     >
       {/* Thumbnail */}
-      <div className="relative aspect-video w-72 shrink-0 overflow-hidden rounded-xl">
+      <div className="relative aspect-video w-full md:w-72 shrink-0 overflow-hidden rounded-xl">
         <Image
           src={thumbnails.high.url}
           alt={title}
@@ -32,9 +34,12 @@ const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
           {title}
         </h2>
 
-        <p className="mt-2 text-sm text-(--muted-copy)">{channelTitle}</p>
+        <div className="flex flex-row gap-x-4">
+          <p className="mt-2 text-sm text-(--muted-copy)">{channelTitle}</p>
+          <p className="mt-2 text-sm text-(--muted-copy)">{publishTime}</p>
+        </div>
 
-        <p className="mt-2 line-clamp-2 text-sm text-(--muted-copy)">
+        <p className="mt-2 line-clamp-2 text-sm text-(--muted-copy) hidden md:block">
           {description}
         </p>
       </div>

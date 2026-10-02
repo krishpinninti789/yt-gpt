@@ -1,6 +1,7 @@
 import { YouTubeVideo } from "@/utils/types";
 import millify from "millify";
 import VideoActions from "./VideoActions";
+import { dateToString } from "@/utils/utils";
 
 type VideoInfoProps = {
   video: YouTubeVideo;
@@ -29,11 +30,7 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
 
           <span>
             {snippet.publishedAt
-              ? new Date(snippet.publishedAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })
+              ? dateToString(snippet.publishedAt)
               : "Unknown date"}
           </span>
         </div>

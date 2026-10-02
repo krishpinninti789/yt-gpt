@@ -43,14 +43,19 @@ const TopLoaderProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (!isLoading) return;
 
-    setIsCompleting(true);
+    const completionTimer = setTimeout(() => {
+      setIsCompleting(true);
+    }, 0);
 
     const timer = setTimeout(() => {
       setIsLoading(false);
       setIsCompleting(false);
     }, 300);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(completionTimer);
+      clearTimeout(timer);
+    };
   }, [pathname, searchParams, isLoading]);
 
   /*

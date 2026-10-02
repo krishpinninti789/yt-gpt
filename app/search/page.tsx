@@ -74,14 +74,20 @@ const SearchPage = () => {
   }, [pageToken, isLoading]);
 
   useEffect(() => {
-    setVideos([]);
-    setPageToken(null);
+    const resetTimer = setTimeout(() => {
+      setVideos([]);
+      setPageToken(null);
+    }, 0);
+
+    return () => {
+      clearTimeout(resetTimer);
+    };
   }, [query, uploadDate, duration, order]);
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8">
       <h1 className="mb-6 text-xl font-semibold text-foreground">
-        Search results for "{query}"
+        Search results for &quot;{query}&quot;
       </h1>
 
       <SearchFilters />

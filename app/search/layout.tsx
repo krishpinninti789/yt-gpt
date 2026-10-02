@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../components/Header";
 import { useRouter } from "next/navigation";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const handleBack = () => {
     router.push("/");
@@ -16,4 +16,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

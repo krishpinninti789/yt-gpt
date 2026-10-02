@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { YouTubeSearchResult } from "@/utils/types";
+import { dateToString } from "@/utils/utils";
 
 type SearchVideoCardProps = {
   video: YouTubeSearchResult;
@@ -36,7 +37,9 @@ const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
 
         <div className="flex flex-row gap-x-4">
           <p className="mt-2 text-sm text-(--muted-copy)">{channelTitle}</p>
-          <p className="mt-2 text-sm text-(--muted-copy)">{publishTime}</p>
+          <p className="mt-2 text-sm text-(--muted-copy)">
+            {dateToString(publishTime)}
+          </p>
         </div>
 
         <p className="mt-2 line-clamp-2 text-sm text-(--muted-copy) hidden md:block">

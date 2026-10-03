@@ -5,3 +5,9 @@ export const dateToString = (rawDate: string) => {
     year: "numeric",
   });
 };
+
+export const triggerHaptic = (duration = 10) => {
+  if (typeof navigator === "undefined") return;
+
+  navigator.vibrate?.(duration);
+};

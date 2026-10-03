@@ -1,6 +1,7 @@
 "use client";
 
 import { navItems } from "@/utils/config/bottomBar-config";
+import { triggerHaptic } from "@/utils/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -34,6 +35,7 @@ const MobileBottomBar = () => {
                 gap-1 text-xs transition-colors
                 ${isActive ? "text-foreground" : "text-muted-foreground"}
               `}
+              onClick={() => triggerHaptic(10)}
             >
               <Icon size={21} strokeWidth={isActive ? 2.5 : 2} />
               <span>{item.label}</span>

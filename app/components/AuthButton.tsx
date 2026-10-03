@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 import { auth } from "@/utils/config/firebase/firebaseAuthClient";
 import { useAuth } from "../../hooks/useAuth";
+import Image from "next/image";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -72,10 +73,12 @@ const AuthButton = () => {
           <>
             {user.photoURL && !avatarFailed ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={user.photoURL}
                 alt=""
                 onError={() => setAvatarFailed(true)}
+                width={100}
+                height={100}
                 className="block h-6 w-6 rounded-full object-cover md:h-7 md:w-7"
               />
             ) : (

@@ -7,6 +7,7 @@ import SearchVideoList from "../components/search/SearchVideoList";
 import SearchVideosShimmerList from "../components/loading-ui/SearchVideosShimmerList";
 import SearchVideoShimmer from "../components/loading-ui/SearchVideoShimmer";
 import SearchFilters from "../components/search/SearchFilters";
+import SearchEmptyState from "../components/search/SearchEmptyState";
 
 const SearchPage = () => {
   const [videos, setVideos] = useState<YouTubeSearchResult[]>([]);
@@ -83,6 +84,10 @@ const SearchPage = () => {
       clearTimeout(resetTimer);
     };
   }, [query, uploadDate, duration, order]);
+
+  if (!query) {
+    return <SearchEmptyState />;
+  }
 
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8">

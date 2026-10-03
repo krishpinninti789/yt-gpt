@@ -59,7 +59,7 @@ const AuthButton = () => {
     .toUpperCase();
 
   return (
-    <div className="relative">
+    <div className="relative hidden md:block">
       <button
         type="button"
         onClick={handleAuth}

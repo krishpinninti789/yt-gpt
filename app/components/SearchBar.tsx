@@ -10,7 +10,7 @@ const SearchBar = () => {
     router.push(`/search?q=${encodeURIComponent(searchValue.trim())}`);
   };
   return (
-    <div className="flex w-full items-center rounded-lg border border-[var(--hairline-strong)] bg-[var(--surface-card)] px-2 py-1.5 text-[var(--accent)] transition-all duration-300 ease-in-out focus-within:border-[var(--foreground)] sm:px-3">
+    <div className="flex w-full items-center rounded-lg border border-[var(--hairline-strong)] bg-[var(--surface-card)] p-2 text-[var(--accent)] transition-all duration-300 ease-in-out focus-within:border-[var(--foreground)] sm:px-3">
       <input
         type="text"
         placeholder="Search"

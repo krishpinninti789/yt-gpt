@@ -20,13 +20,13 @@ const Header = ({ onMenuClick }: HeaderProps) => {
       <Menu className="h-5 w-5 md:h-6 md:w-6" />
     );
   return (
-    <header className="sticky top-0 z-50 flex h-16 w-full items-center justify-between gap-x-3 border-b border-(--hairline) bg-background px-4 sm:px-6 md:h-20 md:px-8">
+    <header className="sticky top-0 z-50 flex h-20 w-full items-center justify-between gap-x-3 border-b border-(--hairline) bg-background px-4 sm:px-6  md:px-8">
       <div className="flex shrink-0 items-center gap-x-2 sm:gap-x-4">
         <button
           type="button"
           onClick={onMenuClick}
           aria-label={isWatchPage ? "Go Back" : "Toggle sidebar"}
-          className="rounded-lg p-2 text-(--muted-copy) transition-colors duration-200 hover:bg-(--surface-elevated) hover:text-foreground cursor-pointer"
+          className="rounded-lg p-2 text-(--muted-copy) transition-colors duration-200 hover:bg-(--surface-elevated) hover:text-foreground cursor-pointer hidden md:block"
         >
           {getRenderableIcon}
         </button>

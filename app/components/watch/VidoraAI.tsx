@@ -36,7 +36,12 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
         }),
       });
 
-      const data = await response.json();
+      const data: {
+        success?: boolean;
+        code?: string;
+        response?: unknown;
+        error?: string;
+      } = await response.json();
 
       if (!response.ok) {
         if (data.code === "TRANSCRIPT_UNAVAILABLE") {
@@ -48,6 +53,10 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
         }
 
         return;
+      }
+
+      if (typeof data.response !== "string" || !data.response.trim()) {
+        throw new Error("The AI returned an empty response. Please try again.");
       }
 
       setAnswer(sanitizeAIResponse(data.response));

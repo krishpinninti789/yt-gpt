@@ -48,6 +48,9 @@ const RelatedVideos = ({
       setNextPageToken(data.nextPageToken);
     } catch (error) {
       console.error("Failed to load more related videos:", error);
+      // Stop the observer from retrying indefinitely when the API is
+      // unavailable, including when YouTube quota is exhausted.
+      setNextPageToken(undefined);
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +81,7 @@ const RelatedVideos = ({
     };
   }, [loadMoreVideos]);
 
-  if (!videos) {
+  if (videos.length === 0) {
     return null;
   }
 

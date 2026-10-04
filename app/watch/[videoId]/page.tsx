@@ -5,24 +5,28 @@ import VideoDescription from "@/app/components/watch/VideoDescription";
 import VideoInfo from "@/app/components/watch/VideoInfo";
 import VideoPlayer from "@/app/components/watch/VideoPlayer";
 import VidoraAI from "@/app/components/watch/VidoraAI";
-import { WatchPageProps } from "@/utils/types";
-import { getVideoTranscript } from "@/utils/youtube/transcript";
+import { WatchPageProps, YouTubeSearchResponse } from "@/utils/types";
 
 const WatchPage = async ({ params }: WatchPageProps) => {
   const { videoId } = await params;
 
   const videosData = await getVideoDetails(videoId);
 
-  const video = videosData.items[0];
-
-  const relatedVideosData = await getRelatedVideos({
-    title: video.snippet.title,
-    categoryId: video.snippet.categoryId!,
-    currentVideoId: video.id,
-  });
-
-  if (!video) {
+  if (videosData.items.length === 0) {
     return null;
+  }
+
+  const video = videosData.items[0];
+  let relatedVideosData: YouTubeSearchResponse | null = null;
+
+  try {
+    relatedVideosData = await getRelatedVideos({
+      title: video.snippet.title,
+      categoryId: video.snippet.categoryId!,
+      currentVideoId: video.id,
+    });
+  } catch (error) {
+    console.error("Related videos unavailable:", error);
   }
 
   return (
@@ -36,14 +40,20 @@ const WatchPage = async ({ params }: WatchPageProps) => {
           <VidoraAI videoId={videoId} />
         </main>
 
-        <aside>
-          <RelatedVideos
-            initialVideos={relatedVideosData.items}
-            initialNextPageToken={relatedVideosData.nextPageToken}
-            title={video.snippet.title}
-            categoryId={video.snippet.categoryId!}
-            currentVideoId={video.id}
-          />
+        <aside className="mb-30 md:m-0">
+          {relatedVideosData ? (
+            <RelatedVideos
+              initialVideos={relatedVideosData.items}
+              initialNextPageToken={relatedVideosData.nextPageToken}
+              title={video.snippet.title}
+              categoryId={video.snippet.categoryId!}
+              currentVideoId={video.id}
+            />
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Related videos are temporarily unavailable.
+            </p>
+          )}
         </aside>
       </div>
     </div>

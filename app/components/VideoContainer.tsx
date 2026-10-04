@@ -6,6 +6,10 @@ import InfiniteVideoList from "./InfiniteVideoList";
 const VideoContainer = async ({ categoryId }: VideoContainerProps) => {
   const videosData = await getVideos({ categoryId });
 
+  if (videosData.items.length === 0) {
+    return null;
+  }
+
   return (
     <InfiniteVideoList
       key={categoryId ?? "all"}

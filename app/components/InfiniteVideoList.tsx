@@ -74,7 +74,11 @@ const InfiniteVideoList = ({
     return () => {
       observer.disconnect();
     };
-  }, [nextPageToken, isLoading]);
+  }, [loadMoreVideos]);
+
+  if (videos.length === 0) {
+    return null;
+  }
 
   return (
     <>

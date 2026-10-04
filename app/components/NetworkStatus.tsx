@@ -3,21 +3,25 @@
 import { useEffect, useState } from "react";
 
 const NetworkStatus = () => {
-  const [isOnline, setIsOnline] = useState(
-    typeof navigator === "undefined" ? true : navigator.onLine,
-  );
+  // Keep the initial render identical on the server and client. The browser
+  // status is read after hydration in the effect below.
+  const [isOnline, setIsOnline] = useState(true);
   const [showBackOnline, setShowBackOnline] = useState(false);
 
   useEffect(() => {
+    let backOnlineTimer: ReturnType<typeof setTimeout> | undefined;
+
     const handleOnline = () => {
       setIsOnline(true);
       setShowBackOnline(true);
 
-      const timer = setTimeout(() => {
+      if (backOnlineTimer) {
+        clearTimeout(backOnlineTimer);
+      }
+
+      backOnlineTimer = setTimeout(() => {
         setShowBackOnline(false);
       }, 3000);
-
-      return () => clearTimeout(timer);
     };
 
     const handleOffline = () => {
@@ -27,10 +31,17 @@ const NetworkStatus = () => {
 
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
+    const statusCheckTimer = setTimeout(() => {
+      setIsOnline(navigator.onLine);
+    }, 0);
 
     return () => {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
+      clearTimeout(statusCheckTimer);
+      if (backOnlineTimer) {
+        clearTimeout(backOnlineTimer);
+      }
     };
   }, []);
 

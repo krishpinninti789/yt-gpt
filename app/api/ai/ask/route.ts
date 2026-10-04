@@ -22,14 +22,14 @@ export async function POST(request: Request) {
     try {
       transcript = await getVideoTranscript(videoId);
     } catch (error) {
-      console.error("Transcript error:", error);
+      console.error("🔥 TRANSCRIPT ERROR:", error);
 
       return NextResponse.json(
         {
           success: false,
-          code: "TRANSCRIPT_UNAVAILABLE",
-          error:
-            "Vidora AI can't understand this video because a transcript isn't available.",
+          code: "TRANSCRIPT_ERROR",
+          error: error instanceof Error ? error.message : String(error),
+          details: error,
         },
         { status: 422 },
       );

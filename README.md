@@ -21,6 +21,7 @@ The project is being built as a production-style application to understand and i
 - [Categories](#categories)
 - [Infinite Scrolling](#infinite-scrolling)
 - [Watch Page](#watch-page)
+- [Vidora AI](#vidora-ai)
 - [Related Videos](#related-videos)
 - [Search](#search)
 - [Search Filters](#search-filters)
@@ -69,8 +70,9 @@ The current application supports:
 - GitHub Actions CI
 - GitHub branch protection through Rulesets
 - Local Git hooks using Husky
+- AI-powered video Q&A
 
-The next major application feature is **Vidora AI**, which will add AI-powered video understanding.
+Vidora AI is now implemented as the first AI-powered feature of the application.
 
 ---
 
@@ -98,7 +100,8 @@ The next major application feature is **Vidora AI**, which will add AI-powered v
 | GitHub Actions CI | Completed |
 | GitHub Ruleset | Completed |
 | Husky | In progress |
-| Vidora AI | Next major feature |
+| Vidora AI V1 | Completed |
+| Production transcript integration | In progress |
 | Watch Later | Planned |
 | Likes | Planned |
 | Subscriptions | Planned |
@@ -245,6 +248,143 @@ The watch page displays information from the YouTube API response, including:
 - Description
 
 The watch page separates these responsibilities into individual components.
+
+---
+
+
+# Vidora AI
+
+Vidora AI is an AI-powered video understanding feature available on the Watch page.
+
+Users can ask questions about the current video and receive answers generated from the video's transcript.
+
+## Vidora AI V1
+
+The first version supports:
+
+- Asking questions about a video
+- Generating answers from the video transcript
+- Loading states
+- Error states
+- Transcript availability handling
+- Server-side AI processing
+
+Example questions:
+
+- What is this video about?
+- Summarize this video.
+- What are the key concepts explained?
+- Explain the main topic in simple terms.
+- What technologies are used in this video?
+
+## Vidora AI Architecture
+
+```text
+Watch Page
+     ↓
+Vidora AI UI
+     ↓
+POST /api/ai/ask
+     ↓
+Transcript Provider
+     ↓
+Video Transcript
+     ↓
+Google Gemini
+     ↓
+AI Response
+     ↓
+Vidora AI UI
+```
+
+The AI API key and transcript provider credentials remain server-side and are never exposed to the browser.
+
+## AI API
+
+```text
+POST /api/ai/ask
+```
+
+Request:
+
+```json
+{
+  "videoId": "youtube-video-id",
+  "question": "What is this video about?"
+}
+```
+
+The API:
+
+1. Receives the video ID and user question.
+2. Retrieves the video transcript.
+3. Builds a context-aware prompt.
+4. Sends the transcript and question to Gemini.
+5. Returns the generated response.
+
+Example response:
+
+```json
+{
+  "success": true,
+  "response": "This video explains...",
+  "interactionId": "..."
+}
+```
+
+## Gemini Integration
+
+Vidora AI uses the Google Gemini Interactions API for generating responses.
+
+Gemini is accessed only from the server.
+
+```text
+Client
+   ↓
+/api/ai/ask
+   ↓
+Gemini
+```
+
+The Gemini API key is stored in:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+The key must never be exposed using the `NEXT_PUBLIC_` prefix.
+
+## Transcript Integration
+
+Vidora AI requires a transcript to understand a video.
+
+Transcript retrieval is abstracted behind:
+
+```ts
+getVideoTranscript(videoId)
+```
+
+The initial implementation uses `youtube-transcript` and works locally. Production transcript retrieval is being moved to a hosted provider because direct transcript requests can behave differently from Vercel's server environment.
+
+Supadata has been selected as the hosted production transcript provider.
+
+```text
+Video ID
+   ↓
+Supadata
+   ↓
+Transcript
+   ↓
+Gemini
+```
+
+The provider key is stored server-side:
+
+```env
+SUPADATA_API_KEY=your_supadata_api_key
+```
+
+Keeping transcript retrieval behind `getVideoTranscript()` allows the provider to be replaced later without changing the AI API or UI.
 
 ---
 
@@ -683,6 +823,10 @@ hooks/
 └── useAuth.ts
 
 utils/
+├── ai/
+│   └── gemini.ts
+├── youtube/
+│   └── transcript.ts
 ├── config/
 │   └── firebase/
 ├── constants/
@@ -771,6 +915,7 @@ The application exposes Next.js Route Handlers:
 app/api/videos/route.ts
 app/api/videos/related/route.ts
 app/api/videos/search/route.ts
+app/api/ai/ask/route.ts
 ```
 
 These provide an internal application API boundary for client-side requests that need additional YouTube data.
@@ -805,6 +950,10 @@ Create a `.env.local` file in the project root.
 
 ```env
 YOUTUBE_API_KEY=your_youtube_api_key
+
+GEMINI_API_KEY=your_gemini_api_key
+
+SUPADATA_API_KEY=your_supadata_api_key
 
 NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
@@ -1187,6 +1336,16 @@ Production
 
 Production environment variables must be configured separately in Vercel.
 
+Server-only production variables include:
+
+```text
+YOUTUBE_API_KEY
+GEMINI_API_KEY
+SUPADATA_API_KEY
+```
+
+These must never use the `NEXT_PUBLIC_` prefix.
+
 ---
 
 # Firebase Production Configuration
@@ -1350,6 +1509,17 @@ Vidora is intentionally being developed as an engineering learning project.
 - Pagination
 - `nextPageToken`
 - API error handling
+- Next.js Route Handlers
+
+## AI
+
+- Transcript-based AI
+- Server-side Gemini integration
+- Gemini Interactions API
+- Prompt construction
+- AI response handling
+- External transcript providers
+- AI-powered video Q&A
 
 ## Firebase
 
@@ -1418,18 +1588,23 @@ Vidora is intentionally being developed as an engineering learning project.
 
 - [ ] Husky pre-commit workflow
 - [ ] Husky pre-push workflow
+- [ ] Production transcript integration
 
-## Next Major Feature
+## Vidora AI
 
-- [ ] Vidora AI
-
-Planned AI capabilities:
-
-- [ ] Video summaries
-- [ ] Key points
-- [ ] Ask questions about videos
-- [ ] Explain video concepts
-- [ ] AI-powered video insights
+- [x] Vidora AI UI
+- [x] Ask questions about videos
+- [x] Transcript retrieval
+- [x] Gemini integration
+- [x] Server-side AI API
+- [x] Loading states
+- [x] Error handling
+- [ ] Production transcript optimization
+- [ ] Improved AI response formatting
+- [ ] Conversation history
+- [ ] Long transcript handling
+- [ ] Timestamp-aware answers
+- [ ] AI-powered video search
 
 ## Future Features
 
@@ -1481,7 +1656,7 @@ Repository Protection
    ↓
 Deployment
    ↓
-AI
+AI Integration
 ```
 
 Each feature is implemented incrementally so the underlying engineering concepts can be understood rather than simply copied.

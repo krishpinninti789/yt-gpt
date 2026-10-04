@@ -28,7 +28,7 @@ export async function POST(request: Request) {
           success: false,
           code: "TRANSCRIPT_UNAVAILABLE",
           error:
-            error instanceof Error ? error.message : "Transcript fetch failed",
+            "Vidora AI can't understand this video because a transcript isn't available.",
         },
         { status: 422 },
       );

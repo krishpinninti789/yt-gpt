@@ -4,7 +4,9 @@ import RelatedVideos from "@/app/components/watch/RelatedVideos";
 import VideoDescription from "@/app/components/watch/VideoDescription";
 import VideoInfo from "@/app/components/watch/VideoInfo";
 import VideoPlayer from "@/app/components/watch/VideoPlayer";
+import VidoraAI from "@/app/components/watch/VidoraAI";
 import { WatchPageProps } from "@/utils/types";
+import { getVideoTranscript } from "@/utils/youtube/transcript";
 
 const WatchPage = async ({ params }: WatchPageProps) => {
   const { videoId } = await params;
@@ -31,6 +33,7 @@ const WatchPage = async ({ params }: WatchPageProps) => {
           <VideoPlayer videoId={videoId} />
           <VideoInfo video={video} />
           <VideoDescription video={video} />
+          <VidoraAI videoId={videoId} />
         </main>
 
         <aside>

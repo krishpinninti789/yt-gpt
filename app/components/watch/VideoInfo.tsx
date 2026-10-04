@@ -14,7 +14,7 @@ const VideoInfo = ({ video }: VideoInfoProps) => {
 
   return (
     <section className="mt-6 border-b border-[var(--hairline)] pb-5">
-      <h1 className="display-serif text-2xl leading-tight text-[var(--foreground)] md:text-3xl">
+      <h1 className="text-2xl leading-tight text-[var(--foreground)] md:text-3xl">
         {snippet.title}
       </h1>
 

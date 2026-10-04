@@ -11,7 +11,6 @@ const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
   const { videoId } = video.id;
   const { title, channelTitle, thumbnails, publishTime, description } =
     video.snippet;
-  console.log(video);
 
   return (
     <Link

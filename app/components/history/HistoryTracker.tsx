@@ -30,8 +30,6 @@ const HistoryTracker = ({ video }: HistoryTrackerProps) => {
           channelId: video.snippet.channelId ?? "",
           channelTitle: video.snippet.channelTitle,
         });
-
-        console.log("Video added to history");
       } catch (error) {
         console.error("Failed to add video to history:", error);
       }

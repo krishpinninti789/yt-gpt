@@ -13,10 +13,6 @@ const WatchPage = async ({ params }: WatchPageProps) => {
 
   const videosData = await getVideoDetails(videoId);
 
-  const res = await getVideoTranscript(videoId);
-
-  console.log(res);
-
   const video = videosData.items[0];
 
   const relatedVideosData = await getRelatedVideos({
@@ -37,7 +33,7 @@ const WatchPage = async ({ params }: WatchPageProps) => {
           <VideoPlayer videoId={videoId} />
           <VideoInfo video={video} />
           <VideoDescription video={video} />
-          <VidoraAI />
+          <VidoraAI videoId={videoId} />
         </main>
 
         <aside>

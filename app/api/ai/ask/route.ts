@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { gemini } from "@/utils/ai/gemini";
 import { getVideoTranscript } from "@/utils/youtube/transcript";

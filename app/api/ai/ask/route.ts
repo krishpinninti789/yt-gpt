@@ -1,4 +1,3 @@
-export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { gemini } from "@/utils/ai/gemini";
 import { getVideoTranscript } from "@/utils/youtube/transcript";
@@ -22,14 +21,14 @@ export async function POST(request: Request) {
     try {
       transcript = await getVideoTranscript(videoId);
     } catch (error) {
-      console.error("🔥 TRANSCRIPT ERROR:", error);
+      console.error("Transcript error:", error);
 
       return NextResponse.json(
         {
           success: false,
-          code: "TRANSCRIPT_ERROR",
-          error: error instanceof Error ? error.message : String(error),
-          details: error,
+          code: "TRANSCRIPT_UNAVAILABLE",
+          error:
+            "Vidora AI can't understand this video because a transcript isn't available.",
         },
         { status: 422 },
       );

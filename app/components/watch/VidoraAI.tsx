@@ -1,7 +1,6 @@
 "use client";
-
-import { sanitizeAIResponse } from "@/utils/ai/helpers";
-import { Bot, Send, Sparkles } from "lucide-react";
+import { quickActions } from "@/utils/constants";
+import { Bot, LucideIcon, Send, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 type VideoraAIPros = {
@@ -14,9 +13,7 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const askQuestion = async (question: string) => {
     const trimmedQuestion = question.trim();
 
     if (!trimmedQuestion || isLoading) return;
@@ -24,6 +21,7 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
     setIsLoading(true);
     setError("");
     setAnswer("");
+
     try {
       const response = await fetch("/api/ai/ask", {
         method: "POST",
@@ -36,12 +34,7 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
         }),
       });
 
-      const data: {
-        success?: boolean;
-        code?: string;
-        response?: unknown;
-        error?: string;
-      } = await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
         if (data.code === "TRANSCRIPT_UNAVAILABLE") {
@@ -55,11 +48,7 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
         return;
       }
 
-      if (typeof data.response !== "string" || !data.response.trim()) {
-        throw new Error("The AI returned an empty response. Please try again.");
-      }
-
-      setAnswer(sanitizeAIResponse(data.response));
+      setAnswer(data.response);
       setQuestion("");
     } catch (error) {
       console.error("Vidora AI error:", error);
@@ -72,6 +61,12 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    await askQuestion(question);
   };
 
   return (
@@ -146,6 +141,51 @@ const VidoraAI = ({ videoId }: VideoraAIPros) => {
             </p>
           </div>
         )}
+
+        <div className="mb-3 flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+          {quickActions.map(
+            ({
+              label,
+              icon: Icon,
+              question,
+            }: {
+              label: string;
+              icon: LucideIcon;
+              question: string;
+            }) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => askQuestion(question)}
+                disabled={isLoading}
+                className="
+          group
+          flex shrink-0 items-center gap-1.5
+          rounded-lg
+          border border-(--hairline)
+          bg-(--surface-deep)
+          p-2.5
+          text-sm font-medium
+          text-muted-foreground
+          transition-all duration-200
+          hover:border-white/15
+          hover:bg-(--surface-elevated)
+          hover:text-foreground
+          active:scale-[0.98]
+          disabled:pointer-events-none
+          disabled:opacity-50
+        "
+              >
+                <Icon
+                  className="size-3.5 transition-colors group-hover:text-foreground"
+                  strokeWidth={1.8}
+                />
+
+                <span>{label}</span>
+              </button>
+            ),
+          )}
+        </div>
 
         {/* Input */}
         <form onSubmit={handleSubmit}>

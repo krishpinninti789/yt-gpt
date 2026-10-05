@@ -49,7 +49,6 @@ body {
   font-family: var(--font-lexend-deca);
 }
 
-button,
 input {
   font: inherit;
 }
